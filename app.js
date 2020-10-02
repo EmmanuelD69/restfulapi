@@ -5,10 +5,13 @@ require("dotenv/config");
 /* variable to execute express package */
 const app = express();
 
-/* Routes */
-app.get("/", (req, res) => {
-  res.send("we are on homepage!");
-});
+/* Importing Routes */
+const homeRoute = require("./routes/home");
+const postsRoute = require("./routes/posts");
+
+/* middleware = everytime we reach the destination a function will run */
+app.use("/", homeRoute);
+app.use("/posts", postsRoute);
 
 /* connecting to DB */
 mongoose.connect(
