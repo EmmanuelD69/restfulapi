@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv/config");
+
 /* variable to execute express package */
 const app = express();
 
@@ -12,6 +13,9 @@ const postsRoute = require("./routes/posts");
 /* middleware = everytime we reach the destination a function will run */
 app.use("/", homeRoute);
 app.use("/posts", postsRoute);
+/* express used to parse the data and make them available in Json format */
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 /* connecting to DB */
 mongoose.connect(
@@ -19,5 +23,6 @@ mongoose.connect(
   { useUnifiedTopology: true, useNewUrlParser: true },
   () => console.log("connected to the database!")
 );
+
 /* Server settings */
 app.listen(3000, () => console.log("Server is up and running!"));
