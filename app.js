@@ -10,12 +10,14 @@ const app = express();
 const homeRoute = require("./routes/home");
 const postsRoute = require("./routes/posts");
 
-/* middleware = everytime we reach the destination a function will run */
-app.use("/", homeRoute);
-app.use("/posts", postsRoute);
 /* express used to parse the data and make them available in Json format */
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+/* !!! DOIT ETRE DECLARER AVANT LES MIDDLEWARE FAISANT APPELS AUX ROUTES !!! */
+
+/* middleware = everytime we reach the destination a function will run */
+app.use("/", homeRoute);
+app.use("/posts", postsRoute);
 
 /* connecting to DB */
 mongoose.connect(
