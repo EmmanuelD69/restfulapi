@@ -8,8 +8,13 @@ const Post = require("../models/post");
 const router = express.Router();
 
 /* GET Routes - What the server is sending us */
-router.get("/", (req, res) => {
-  res.send("we are on posts page!");
+router.get("/", async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.json(posts);
+  } catch (err) {
+    res.json({ message: err });
+  }
 });
 
 router.get("/test", (req, res) => {
