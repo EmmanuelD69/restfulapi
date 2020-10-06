@@ -1,6 +1,8 @@
 /* loading packages we will use in this project */
 const express = require("express");
 const mongoose = require("mongoose");
+/* cors package allow cross-plateform data request */
+const cors = require("cors");
 require("dotenv/config");
 
 /* variable to execute express package */
@@ -11,6 +13,7 @@ const homeRoute = require("./routes/home");
 const postsRoute = require("./routes/posts");
 
 /* express used to parse the data and make them available in Json format */
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 /* !!! DOIT ETRE DECLARER AVANT LES MIDDLEWARE FAISANT APPELS AUX ROUTES !!! */
