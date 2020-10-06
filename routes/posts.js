@@ -8,6 +8,7 @@ const Post = require("../models/post");
 const router = express.Router();
 
 /* GET Routes - What the server is sending us */
+/* GET BACK ALL THE POSTS */
 router.get("/", async (req, res) => {
   try {
     const posts = await Post.find();
@@ -21,7 +22,18 @@ router.get("/test", (req, res) => {
   res.send("we are on posts test page!");
 });
 
+/* GETTING BACK A SPECIFIC POST */
+router.get("/:postId", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+    res.json(post);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
 /* POST Routes - What we are sending to the server */
+/* SUBMITS A POST */
 router.post("/", async (req, res) => {
   /* based on our model, a new Post will be created */
   const post = new Post({
