@@ -17,7 +17,7 @@ router.get("/test", (req, res) => {
 });
 
 /* POST Routes - What we are sending to the server */
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   /* based on our model, a new Post will be created */
   const post = new Post({
     title: req.body.title,
@@ -25,14 +25,12 @@ router.post("/", (req, res) => {
   });
 
   /* saving the data to the mongoDB database */
-  post
-    .save()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.json({ message: err });
-    });
+  try {
+    const savedPost = await post.save();
+    res.json(savedPost);
+  } catch {
+    res.json({ message: err });
+  }
 });
 
 /* Exporting module */
